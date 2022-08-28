@@ -1,0 +1,123 @@
+﻿@model UrunModel
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Yeni Ürün</title>
+</head>
+<body>
+
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <h4>Ürün</h4>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            @using (Html.BeginForm(FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="row mb-3">
+                                    <label asp-for="Adi" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        <input asp-for="Adi" class="form-control" />
+                                        <span asp-validation-for="Adi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="Aciklamasi" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        <textarea asp-for="Aciklamasi" class="form-control" rows="3"></textarea>
+                                        <span asp-validation-for="Aciklamasi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="BirimFiyati" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        <input asp-for="BirimFiyati" class="form-control" />
+                                        <span asp-validation-for="BirimFiyati" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="PiyasaSatisFiyati" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        <input asp-for="PiyasaSatisFiyati" class="form-control" />
+                                        <span asp-validation-for="PiyasaSatisFiyati" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="StokMiktari" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        <input asp-for="StokMiktari" class="form-control" />
+                                        <span asp-validation-for="StokMiktari" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="MarkaId" class="col-3 col-form-label">Marka</label>
+                                    <div class="col-5">
+                                        <select asp-for="MarkaId" class="form-control" asp-items="ViewBag.MarkaId">
+                                            <option value="">-- Select --</option>
+                                        </select>
+                                        <span asp-validation-for="MarkaId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="KategoriId" class="col-3 col-form-label">Kategori</label>
+                                    <div class="col-5">
+                                        <select asp-for="KategoriId" class="form-control" asp-items="ViewBag.KategoriId">
+                                            <option value="">-- Select --</option>
+                                        </select>
+                                        <span asp-validation-for="KategoriId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label asp-for="Imaj" class="col-3 col-form-label"></label>
+                                    <div class="col-5">
+                                        @*<input asp-for="Imaj" class="form-control" />
+                                            <span asp-validation-for="Imaj" class="text-danger"></span>*@
+                                        <input name="Imaj" class="form-control " type="file" accept=".jpg, .jpeg, .png" />
+
+                                    </div>
+                                </div>
+                                @*<div class="row mb-3">
+                                    <label asp-for="ImajUzantisi" class="col-2 col-form-label"></label>
+                                    <div class="col-5">
+                                    <input asp-for="ImajUzantisi" class="form-control" />
+                                    <span asp-validation-for="ImajUzantisi" class="text-danger"></span>
+                                    </div>
+                                    </div>*@
+                                <div class="row mb-3">
+                                    <div class="offset-2 col-5">
+                                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                                        &nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-outline-primary">Temizle</button>
+                                        &nbsp;&nbsp;
+                                        <hr />
+                                        <a asp-action="Index"><i class="fa fa-arrow-left"></i> Ürün Listesi</a>
+                                    </div>
+                                </div>
+
+                            }
+
+                            @*<form asp-action="Create">*@
+
+                            @*</form>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* @section Scripts {
+        @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        }*@
+</body>
+</html>

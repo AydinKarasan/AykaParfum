@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "İletişim";
+}
+
+<html>
+<body>
+    @*<h2>@ViewData["Title"]</h2>*@
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-1 px-xl-1">
+            <div class="col-11 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <div class="row px-xl-5">
+                        <div class="col-lg-7 mb-5">
+                            <div class="contact-form">
+                                <div id="success"></div>
+                                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                                    <div class="control-group">
+                                        <input type="text" class="form-control" id="name" placeholder="Adınız..."
+                                               required="required" data-validation-required-message="Lütfen Adınızı Yazınız!" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="control-group">
+                                        <input type="email" class="form-control" id="email" placeholder="Email Adresiniz..."
+                                               required="required" data-validation-required-message="Lütfen Email Adresinizi Yazınız!" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="control-group">
+                                        <input type="text" class="form-control" id="subject" placeholder="Konu..."
+                                               required="required" data-validation-required-message="Lütfen Konu Yazınız!" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="control-group">
+                                        <textarea class="form-control" rows="6" id="message" placeholder="Konu Detayı..."
+                                                  required="required"
+                                                  data-validation-required-message="Lütfen Konu Detayı Yazınız!"></textarea>
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                                            Gönder
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mb-5">
+                            <h5 class="font-weight-semi-bold mb-3">Ayka Parfum</h5>
+                            <p>İthal Orjinal Tester Parfümler Çok Uygun Fiyatlara...</p>
+                            <div class="d-flex flex-column mb-3">
+                                <h5 class="font-weight-semi-bold mb-3">Mağaza</h5>
+                                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Osmangazi Cad. Keçiören, ANKARA</p>
+                                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ayka.yazilim@gmail.com</p>
+                                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>05336598584</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

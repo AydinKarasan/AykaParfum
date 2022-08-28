@@ -1,0 +1,74 @@
+﻿@using Business.Models.Sepet
+
+
+@model List<SepetUrunToplamModel>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Sepet";
+    Layout = "_Layout";
+}
+
+
+
+
+<div class="container-fluid bg-secondary my-5">
+    <div class="row justify-content-md-center py-1 px-xl-1">
+        <div class="col-md-11 col-12 py-5">
+            <div class="text-center mb-2 pb-2">
+                @if (Model != null && Model.Count > 0)
+                {
+                    <p>
+                        <a asp-action="Temizle">Sepeti Temizle</a>
+                    </p>
+
+
+                    <table class="table table-hover">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.FirstOrDefault().UrunAdi)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.FirstOrDefault().ToplamUrunFiyatiDisplay)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.FirstOrDefault().ToplamUrunAdedi)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>                                        
+                                        @Html.DisplayFor(m => item.UrunAdi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayNameFor(m => item.ToplamUrunFiyatiDisplay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayNameFor(m => item.ToplamUrunAdedi)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Sil" asp-route-urunId="@item.UrunId" asp-route-kullaniciId="@item.KullaniciId" asp-controller="Sepet" asp-area="Sepet">Sepetten Sil</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Toplam</td>
+                                    <td>@Model.Sum(m => m.ToplamUrunFiyati).ToString("C2")</td>
+                                    <td>@Model.Sum(m => m.ToplamUrunAdedi)</td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

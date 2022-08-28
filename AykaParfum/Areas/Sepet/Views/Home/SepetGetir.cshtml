@@ -1,0 +1,64 @@
+﻿@using Business.Models.Sepet
+
+@model IEnumerable<SepetUrunModel>
+
+@*@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers*@
+
+@{
+    ViewData["Title"] = "Sepet";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid bg-secondary my-5">
+    <div class="row justify-content-md-center py-1 px-xl-1">
+        <div class="col-md-11 col-12 py-5">
+            <div class="text-center mb-2 pb-2">
+                <p>
+                    <a asp-action="Temizle">Sepeti Temizle</a>
+                </p>
+
+                @if (Model.Count() == 0)
+                {
+                    <p class="text-danger">Kayıt bulunamadı</p>
+                }
+                else
+                {
+                    <p class="text-success">@Model.Count() kayıt bulundu</p>
+                }
+
+                <table class="table table-hover">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(m => m.FirstOrDefault().UrunAdi)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(m => m.FirstOrDefault().BirimFiyati)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(m => item.UrunAdi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.BirimFiyati)
+                                </td>
+                                <td>
+                                    <a asp-action="Sil" asp-route-urunId="@item.UrunId" asp-route-kullaniciId="@item.KullaniciId" asp-controller="Sepet" asp-area="Sepet">Sepetten Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

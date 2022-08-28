@@ -1,0 +1,78 @@
+﻿@model IEnumerable<KategoriModel>
+
+@{
+    ViewData["Title"] = "Kategori Listesi";
+}
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kategori</title>
+</head>
+<body>
+
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-1 px-xl-1">
+            <div class="col-md-11 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <h4>Kategoriler</h4>
+                    <br />
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <p>@TempData["Mesaj"]</p>
+                    }
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        <p>@Model.Count() kayıt bulundu.</p>
+                    }
+                    else
+                    {
+                        <p>Kayıt bulunamadı!</p>
+                    }
+
+                    <p>
+                        <a asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Kategori</a>
+                    </p>
+                    <div>
+                        <table class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Adi)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Adi)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Details" aasp-controller="Kategoriler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i> Detay</a>
+                                            <a asp-action="Edit" asp-controller="Kategoriler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-edit text-primary mr-1"></i> Düzenle</a>
+                                            <a asp-action="Delete" asp-controller="Kategoriler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-trash text-primary mr-1"></i> Sil</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

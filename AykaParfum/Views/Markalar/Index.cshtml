@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MarkaModel>
+
+@{
+    ViewData["Title"] = "Marka Listesi";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Marka</title>
+</head>
+<body>
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-1 px-xl-1">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <h4>Markalar</h4>
+                    <br />
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <p>@TempData["Mesaj"]</p>
+                    }
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        <p>@Model.Count() kayıt bulundu.</p>
+                    }
+                    else
+                    {
+                        <p>Kayıt bulunamadı!</p>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <p>
+                            <a asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Marka</a>
+                        </p>
+                    }
+
+                    <table class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Adi)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Adi)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id">Detaylar</a>&nbsp;|&nbsp;
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>&nbsp;|&nbsp;
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

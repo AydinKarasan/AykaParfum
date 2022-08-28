@@ -1,0 +1,140 @@
+﻿@using Business.Models.Hesap
+@using DataAccess.Enums
+
+@model KullaniciKayitModel
+
+
+<div class="container-fluid bg-secondary my-5">
+    <div class="row justify-content-md-center py-5 px-xl-5">
+        <div class="col-md-6 col-12 py-5">
+            <div class="text-center mb-2 pb-2">
+
+                @{
+                    ViewData["Title"] = "Kayıt";
+                }
+
+                @*<h1>@ViewData["Title"]</h1>*@
+
+                <h4>Kullanıcı Kayıt</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-12">
+                        <form asp-action="Kayit">
+                            @Html.AntiForgeryToken()
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            @if (ViewBag.Message != null)
+                            {
+                                <p class="text-danger">@ViewBag.Message</p>
+                            }
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciAdi" class="col-2 col-form-label">Kullanıcı Adı</label>
+                                <div class="col-5">
+                                    <input asp-for="KullaniciAdi" class="form-control" />
+                                    <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="Sifre" class="col-2 col-form-label">Şifre</label>
+                                <div class="col-5">
+                                    <input asp-for="Sifre" class="form-control" type="password" />
+                                    <span asp-validation-for="Sifre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="SifreOnay" class="col-2 col-form-label">Şifre Tekrar</label>
+                                <div class="col-5">
+                                    <input asp-for="SifreOnay" class="form-control" type="password" />
+                                    <span asp-validation-for="SifreOnay" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciDetay.Cinsiyet" class="col-2 col-form-label"></label>
+                                <div class="col-5">
+                                    <select asp-for="KullaniciDetay.Cinsiyet" class="form-control">
+                                        <option value="@((int)Cinsiyetler.BelirtmekIstemiyorum)">Belirtmek İstemiyorum</option>
+                                        <option value="@((int)Cinsiyetler.Kadın)">@Cinsiyetler.Kadın</option>
+                                        <option value="@((int)Cinsiyetler.Erkek)">@Cinsiyetler.Erkek</option>
+                                    </select>
+                                    <span asp-validation-for="KullaniciDetay.Cinsiyet" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciDetay.Eposta" class="col-2 col-form-label"></label>
+                                <div class="col-5">
+                                    <input asp-for="KullaniciDetay.Eposta" class="form-control" />
+                                    <span asp-validation-for="KullaniciDetay.Eposta" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciDetay.Adres" class="col-2 col-form-label"></label>
+                                <div class="col-5">
+                                    <textarea asp-for="KullaniciDetay.Adres" class="form-control"></textarea>
+                                    <span asp-validation-for="KullaniciDetay.Adres" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciDetay.UlkeId" class="col-2 col-form-label"></label>
+                                <div class="col-5">
+                                    <select asp-for="KullaniciDetay.UlkeId" class="form-control" asp-items="ViewBag.Ulkeler" id="ulkeler">
+                                        <option value="">-- Seçiniz --</option>
+                                    </select>
+                                    <span id="ulkelerMesaj" asp-validation-for="KullaniciDetay.UlkeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="KullaniciDetay.SehirId" class="col-2 col-form-label"></label>
+                                <div class="col-5">
+                                    <select asp-for="KullaniciDetay.SehirId" class="form-control" asp-items="ViewBag.Sehirler" id="sehirler">
+                                        <option value="">-- Ülke Seçiniz --</option>
+                                    </select>
+                                    <span asp-validation-for="KullaniciDetay.SehirId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="offset-2 col-5">
+                                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                                    &nbsp;&nbsp;
+                                    <button type="reset" class="btn btn-outline-dark">Temizle</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*@section Scripts {
+    @* <partial name="_AjaxPartial"/>
+    <partial name="_ValidationScriptsPartial"/>*@
+@*<script>
+    $(function(){
+    $("#ulkeler").change(function(){
+    $("#ulkelermesaj").text("");
+    $("#sehirler").empty();
+    var seciliUlkeId = $("#ulkeler").val();
+    if(seciliUlkeId == "") {
+    $("#ulklerMesaj").text("Lütfen ülke seçiniz...")
+    $("#sehirler").append('<option value="">-- Ülke Seçiniz --</option>');
+    }
+    else {
+    $.getJSON(
+    "/SehirlerAjax/SehirlerGet/" + seciliUlkeId,
+    function(sehirler) {
+    $("#sehirler").append('<option value="">-- Şehir Seçiniz --</option>');
+    for(var i = 0; i < sehirler.length; i++) {
+    $("#sehirler").append('<option value="' + sehirler[i].id + '">' + sehirler[i].adi + '</option>');
+    }
+    }
+    );
+    }
+    });
+    });
+    </script>
+    }*@

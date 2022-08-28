@@ -1,0 +1,92 @@
+﻿@model IEnumerable<KampanyaModel>
+
+@{
+    ViewData["Title"] = "Kampanyalar";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<html>
+
+<body>
+
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-1 px-xl-1">
+            <div class="col-md-11 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    
+                    <br />
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <p>@TempData["Mesaj"]</p>
+                    }
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        <p>@Model.Count() kayıt bulundu.</p>
+                    }
+                    else
+                    {
+                        <p>Kayıt bulunamadı!</p>
+                    }
+
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <span class="bg-success text-white">@TempData["Mesaj"]</span>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <p>
+                            <a asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Kampanya</a>
+                        </p>
+                    }
+
+
+                    <table class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Adi)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Aciklamasi)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AktifMiDisplay)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Adi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Aciklamasi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AktifMiDisplay)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i> Detay</a>&nbsp;|&nbsp;
+
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0"><i class="fas fa-edit text-primary mr-1"></i> Düzenle</a>                                           
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0"><i class="fas fa-trash text-primary mr-1"></i> Sil</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

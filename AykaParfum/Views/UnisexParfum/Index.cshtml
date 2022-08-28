@@ -1,0 +1,99 @@
+﻿@model IEnumerable<UrunModel>
+
+
+
+@{
+    ViewData["Title"] = "Unisex Parfümler";
+}
+
+<html>
+<body>
+
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-1 px-xl-1">
+            <div class="col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <h2>@ViewData["Title"]</h2>
+                    <br />
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <p>@TempData["Mesaj"]</p>
+                    }
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        <p>@Model.Count() kayıt bulundu.</p>
+                    }
+                    else
+                    {
+                        <p>Kayıt bulunamadı!</p>
+                    }
+
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <span class="bg-success text-white">@TempData["Mesaj"]</span>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <p>
+                            <a asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ürün</a>
+                        </p>
+                    }
+
+                    @*@await Component.InvokeAsync("Aramalar")*@
+
+                    <div class="container-fluid pt-5">
+
+                        <div class="row px-xl-5 pb-3">
+
+                            @foreach (var item in Model)
+                            {
+
+                                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                                    <div class="card product-item border-0 mb-4">
+                                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                            @*<img class="img-fluid w-100" src="~/img/product-2.jpg" alt="">*@
+                                            @if (!string.IsNullOrWhiteSpace(item.ImgSrcDisplay))
+                                            {
+                                                <a asp-action="DownloadImage" asp-route-urunId="@item.Id"><img src="@item.ImgSrcDisplay" class="img-thumbnail" /></a>
+                                            }
+                                            else
+                                            {
+                                                <img src="/img/noImage.jpg" class="img-thumbnail" />
+                                            }
+                                        </div>
+                                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                            <h6 class="text-truncate mb-3">@Html.DisplayFor(modelItem => item.Adi)</h6>
+                                            <div class="d-flex justify-content-center">
+                                                <h5 class="text-muted ml-2"><del>@Html.DisplayFor(modelItem => item.PiyasaSatisFiyatiDisplay)</del></h5>&nbsp;&nbsp;&nbsp;&nbsp;<h5>@Html.DisplayFor(modelItem => item.BirimFiyatiDisplay)</h5>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <h6 class="text-muted ml-2">@Html.DisplayFor(modelItem => item.KategoriAdiDisplay)</h6>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between bg-light border">
+                                            <a asp-action="Details" asp-controller="Urunler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i> Detay</a>
+                                            <a asp-action="SepeteEkle"  asp-controller="Home" asp-route-urunId="@item.Id" title="Sepete Ekle" asp-area="Sepet" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i> Sepete Ekle</a>
+
+                                        </div>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                                <a asp-action="Delete" asp-controller="Urunler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-trash text-primary mr-1"></i> Sil</a>
+                                                <a asp-action="Edit" asp-controller="Urunler" asp-route-id="@item.Id" asp-area="" class="btn btn-sm text-dark p-0"><i class="fas fa-edit text-primary mr-1"></i> Düzenle</a>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

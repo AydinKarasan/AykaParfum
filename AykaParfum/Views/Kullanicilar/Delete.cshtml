@@ -1,0 +1,60 @@
+﻿@model KullaniciModel
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sil</title>
+</head>
+<body>
+
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+
+                    <h6 class="bg-info text-black">Silmek istediğinize emin misiniz?</h6>
+
+                    <div>
+                        <h4>Kullanici</h4>
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(model => model.KullaniciAdi)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(model => model.KullaniciAdi)
+                            </dd>
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(model => model.Sifre)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(model => model.Sifre)
+                            </dd>
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(model => model.AktifMi)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(model => model.AktifMi)
+                            </dd>
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(model => model.RolAdiDisplay)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(model => model.RolAdiDisplay)
+                            </dd>
+                        </dl>
+
+                        <form asp-action="Delete">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Sil" class="btn btn-danger" />&nbsp;&nbsp;
+                            <a asp-action="Index"><i class="fa fa-arrow-left" ></i> Kullanıcı Listesi</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
